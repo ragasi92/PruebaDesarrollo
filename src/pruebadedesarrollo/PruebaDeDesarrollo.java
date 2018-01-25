@@ -15,7 +15,13 @@ public class PruebaDeDesarrollo {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        String[] s = {"hola","jamon"};
+        Chicago chic = new Chicago();
+        System.out.println(chic.getEstado());
+        chic.setEstado("En armado");
+        System.out.println(chic.getEstado()+ ":");
+        for(int i  = 0;i<chic.getIngredientes().length;i++)
+          System.out.println(chic.getIngredientes()[i]);
     }
     
 }
