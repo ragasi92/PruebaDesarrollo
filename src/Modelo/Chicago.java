@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pruebadedesarrollo;
+package Modelo;
 
 /**
  *
@@ -11,11 +11,12 @@ package pruebadedesarrollo;
  */
 public class Chicago extends Pizza {
     
-   public Chicago(){
+   public Chicago(String cliente){
        String[] ing = {"Salsa de tomate","Pimiento","Salchicha italiana",
            "Queso Mozzarella"};
        setIngredientes(ing);  
-       setEstado("En pedido");
+       setCliente(cliente);
+       setTipo("Chicago");
    }
    
     

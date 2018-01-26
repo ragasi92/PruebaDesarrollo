@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pruebadedesarrollo;
+package Modelo;
 
 /**
  *
  * @author ragasi92
  */
 public class Clasica extends Pizza{
-    public Clasica(){
+    public Clasica(String cliente){
         String[] ing = {"Salsa de tomate","Pepperoni","Queso"};
-       setIngredientes(ing); 
-       setEstado("En pedido");
+       setIngredientes(ing);
+       setCliente(cliente);
+       setTipo("Clasica");
     }
 }

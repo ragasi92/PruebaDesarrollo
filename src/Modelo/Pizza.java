@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pruebadedesarrollo;
+package Modelo;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
@@ -12,7 +15,9 @@ package pruebadedesarrollo;
 public class Pizza {
     
     private String[] ingredientes;
-    private String estado;
+    private String tipo;
+    private String estado = "En pedido";
+    private String cliente;
     
 
     /**
@@ -20,6 +25,12 @@ public class Pizza {
      */
     public String[] getIngredientes() {
         return ingredientes;
+    }
+    public String getTipo(){
+        return tipo;
+    }
+    public void setTipo(String tipo){
+        this.tipo = tipo;
     }
 
     /**
@@ -42,6 +53,38 @@ public class Pizza {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    /**
+     * @return the cliente
+     */
+    public final String getCliente() {
+        return cliente;
+    }
+
+    /**
+     * @param cliente the cliente to set
+     */
+    public final void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+    
+    Timer timer = new Timer();
+
+    TimerTask task = new TimerTask() {
+        
+        @Override
+        public void run()
+        {
+            estado = "en";
+        }
+        };
+    public void valores(){
+        // Empezamos dentro de 10ms y luego lanzamos la tarea cada 1000ms
+        timer.schedule(task, 0, 2000);
+    }
+        
     
     
 }
+
+

@@ -3,17 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pruebadedesarrollo;
+package Modelo;
 
 /**
  *
  * @author ragasi92
  */
 public class Hawaii extends Pizza{
-    public Hawaii(){
+    public Hawaii(String cliente){
         String[] ing = {"Piña","Jamón","Queso","Salchicha"};
        setIngredientes(ing); 
-       setEstado("En pedido");
+       setCliente(cliente);
+       setTipo("Hawaii");
     }
     
 }

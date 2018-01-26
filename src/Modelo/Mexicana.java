@@ -3,18 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pruebadedesarrollo;
+package Modelo;
 
 /**
  *
  * @author ragasi92
  */
 public class Mexicana extends Pizza{
-    public Mexicana(){
+    public Mexicana(String cliente){
         String[] ing = {"Carne molida","Chile jalapeño","Cebolla",
            "Queso oaxaca","Aguacate"};
-       setIngredientes(ing); 
-       setEstado("En pedido");
+       setIngredientes(ing);
+       setCliente(cliente);
+       setTipo("Mexicana");
     }
     
 }
