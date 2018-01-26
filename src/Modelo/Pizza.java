@@ -67,24 +67,6 @@ public class Pizza {
     public final void setCliente(String cliente) {
         this.cliente = cliente;
     }
-    
-    Timer timer = new Timer();
-
-    TimerTask task = new TimerTask() {
-        
-        @Override
-        public void run()
-        {
-            estado = "en";
-        }
-        };
-    public void valores(){
-        // Empezamos dentro de 10ms y luego lanzamos la tarea cada 1000ms
-        timer.schedule(task, 0, 2000);
-    }
-        
-    
-    
 }
 
 

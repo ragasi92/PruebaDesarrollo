@@ -12,8 +12,12 @@ import Modelo.Mexicana;
 import Modelo.Pizza;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,7 +33,8 @@ public class jfMain extends javax.swing.JFrame {
     private final String[] nombresTabla = {"Cliente","Pizza","Estado"};
     private final String[] nombresTabla2 = {"Cliente","Pizza","Ingredientes","Estado"};
     
-    ArrayList<Pizza> pedidos = new ArrayList<>();
+    //private ArrayList<Pizza> pedidos = new ArrayList<>();
+    private LinkedList<Pizza> pedidos = new LinkedList<>();
     /**
      * Creates new form jfMain
      */
@@ -276,15 +281,21 @@ public class jfMain extends javax.swing.JFrame {
         return ingredientes;
     }
     
+    private void pedidosEntregados(){
+        for(int i =0;i<pedidos.size();i++){
+            if(pedidos.get(i).getEstado()=="Entregado al cliente")
+                pedidos.remove(i);
+        }
+    }
+    
     private void mostrarTabla(){
         //Se borran los elementos de la tabla
-        modelo.setRowCount(0);
+        limpiarTabla();
         //se recorre la lista de pedidos 
         for(int i =0;i<pedidos.size();i++){
-            //Si el estado del pedido es en armado se muestran los ingredientes
+            
+               //Si el estado del pedido es en armado se muestran los ingredientes
             if(pedidos.get(i).getEstado()=="En armado"){
-                //Se cambian los nombres de las columnas
-                this.modelo.setColumnIdentifiers(nombresTabla2);
                 //Se crea un arreglo de Strings con los valores del pedido
                 String[] s = {
                 pedidos.get(i).getCliente(),
@@ -297,19 +308,51 @@ public class jfMain extends javax.swing.JFrame {
             }
             //Si no hay pedido en armado no se muestran los ingredientes
             else{
-                //Se cambian los nombres de las columnas
-                modelo.setColumnIdentifiers(nombresTabla);
                 //Se crea un arreglo de String con los valores del pedido
                String[] s = {
                 pedidos.get(i).getCliente(),
-                pedidos.get(i).getTipo(),
+                pedidos.get(i).getTipo(),"",
                 pedidos.get(i).getEstado()
                 }; 
                //Se agrega el pedido a la tabla
                modelo.addRow(s);
-            }
+            } 
+            
+            
             
         }
+    }
+    private void limpiarTabla(){
+        for (int i = 0; i < tblPedidos.getRowCount(); i++) {
+            modelo.removeRow(i);
+            i-=1;
+        }
+    }
+    
+    public void estados(){
+        Iterator iter = pedidos.iterator();
+        Pizza iP;
+        int i =0;
+        while(iter.hasNext()){
+            iP = (Pizza)iter.next();
+            switch(iP.getEstado()){
+                case "En pedido":
+                    iP.setEstado("En armado");
+                    break;
+                case "En armado":
+                    iP.setEstado("En horno");
+                    break;
+                case "En horno":
+                    iP.setEstado("En empacado");
+                    break;
+                case "En empacado":
+                    iP.setEstado("Entregado al cliente");
+                    break;
+                    
+            } 
+            i++;
+        }
+        this.mostrarTabla();
     }
     
     
@@ -354,16 +397,12 @@ public class jfMain extends javax.swing.JFrame {
         @Override
         public void run()
         {
-            
-            if (tic%2==0)
-            System.out.println("TIC");
-            else
-            System.out.println("TOC");
-            tic++;
+            ventana.estados();
+            ventana.pedidosEntregados();
         }
         };
         // Empezamos dentro de 10ms y luego lanzamos la tarea cada 1000ms
-    timer.schedule(task, 10, 1000);
+    timer.schedule(task, 10, 8000);
             }
         });
     }
