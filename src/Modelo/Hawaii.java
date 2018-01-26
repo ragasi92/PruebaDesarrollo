@@ -10,6 +10,11 @@ package Modelo;
  * @author ragasi92
  */
 public class Hawaii extends Pizza{
+
+    /**
+     *Recibe el nombre del cliente
+     * @param cliente
+     */
     public Hawaii(String cliente){
         String[] ing = {"Piña","Jamón","Queso","Salchicha"};
        setIngredientes(ing); 

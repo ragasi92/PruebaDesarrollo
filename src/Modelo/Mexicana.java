@@ -10,6 +10,11 @@ package Modelo;
  * @author ragasi92
  */
 public class Mexicana extends Pizza{
+
+    /**
+     *
+     * @param cliente
+     */
     public Mexicana(String cliente){
         String[] ing = {"Carne molida","Chile jalapeño","Cebolla",
            "Queso oaxaca","Aguacate"};

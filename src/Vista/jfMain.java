@@ -19,6 +19,8 @@ import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -29,6 +31,7 @@ public class jfMain extends javax.swing.JFrame {
     private int canPizza = 1;
     //modelo de la tabla
     private final DefaultTableModel modelo;
+    private TableColumnModel modCol;
     //identificadores de la tabla de pedidos
     private final String[] nombresTabla = {"Cliente","Pizza","Estado"};
     private final String[] nombresTabla2 = {"Cliente","Pizza","Ingredientes","Estado"};
@@ -49,6 +52,12 @@ public class jfMain extends javax.swing.JFrame {
         modelo = (DefaultTableModel)this.tblPedidos.getModel();
         //Identificadores de las columnas de la tabla
         modelo.setColumnIdentifiers(nombresTabla2);
+        //Se establecen los tamaños de las columnas
+        this.modCol = (TableColumnModel)this.tblPedidos.getColumnModel();
+        modCol.getColumn(0).setPreferredWidth(150);//tamaño columna cliente
+        modCol.getColumn(1).setPreferredWidth(150);//tamaño columna Tipo de pizza
+        modCol.getColumn(2).setPreferredWidth(450);//tamaño columna ingredientes
+        modCol.getColumn(3).setPreferredWidth(200);//tamaño columna estado
         //Se inicia con la tabla vacia
         modelo.setRowCount(0);
         //Se asigna el focus al jtextFiel del cliente
@@ -71,12 +80,13 @@ public class jfMain extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnMnP = new javax.swing.JButton();
         btnMxP = new javax.swing.JButton();
-        bntPedido = new javax.swing.JButton();
+        bntAgregar = new javax.swing.JButton();
         txtNumPizzas = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPedidos = new javax.swing.JTable();
         lblMensaje = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        btnFinPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,10 +112,10 @@ public class jfMain extends javax.swing.JFrame {
             }
         });
 
-        bntPedido.setText("Realizar Pedido");
-        bntPedido.addActionListener(new java.awt.event.ActionListener() {
+        bntAgregar.setText("Agregar");
+        bntAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bntPedidoActionPerformed(evt);
+                bntAgregarActionPerformed(evt);
             }
         });
 
@@ -122,10 +132,18 @@ public class jfMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblPedidos.setName("efdsa"); // NOI18N
+        tblPedidos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tblPedidos.setName(""); // NOI18N
         jScrollPane1.setViewportView(tblPedidos);
 
         jLabel4.setText("PEDIDOS");
+
+        btnFinPedido.setText("Finalizar Pedido");
+        btnFinPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinPedidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,7 +157,7 @@ public class jfMain extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(bntPedido)
+                            .addComponent(bntAgregar)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel1)
@@ -157,7 +175,10 @@ public class jfMain extends javax.swing.JFrame {
                                     .addComponent(btnMxP)))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnFinPedido)))
                 .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -191,29 +212,52 @@ public class jfMain extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bntPedido)
-                        .addGap(0, 61, Short.MAX_VALUE)))
+                        .addComponent(bntAgregar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnFinPedido)
+                        .addGap(0, 26, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**<p>
+     * Funcion del boton "-"
+     * cada vez que se precione el boton se restará uno 
+     * a la cantidad de pizza
+     * </p>
+     * 
+     * @param evt 
+     *
+     */
     private void btnMnPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMnPActionPerformed
         canPizza -= 1;
         if(canPizza <=0)
             canPizza =1;
         this.txtNumPizzas.setText(String.valueOf(canPizza));
     }//GEN-LAST:event_btnMnPActionPerformed
-
+    /**
+     * <p>
+     * Función del botón "+", cada vez que se presione se sumará uno
+     * a la cantidad de pizzas para el pedido
+     * </p>
+     * @param evt 
+     */
     private void btnMxPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMxPActionPerformed
         canPizza += 1;
         if(canPizza >=20)
             canPizza =20;
         this.txtNumPizzas.setText(String.valueOf(canPizza));
     }//GEN-LAST:event_btnMxPActionPerformed
+/**
+ *  
+ * @param evt 
+ */
+    private void bntAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntAgregarActionPerformed
+        //Al presionar el boton agregar se mantiene el nombre del cliente
+        //las pizzas se van agregando a la lista de pedidos
 
-    private void bntPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPedidoActionPerformed
         //Se guarda el tipo de pizza del comboBox
         String tpizza = this.cbTipoPizza.getSelectedItem().toString();
         //Se guarda el nombre del cliente
@@ -227,17 +271,21 @@ public class jfMain extends javax.swing.JFrame {
         else{
             //Se manda llamar la funcion del pedido
             pedidoPizza(cliente, tpizza, canPizza);
-            
             //Se inicializan los elementos del jFrame
-            this.txtNombre.setText("");
-            this.txtNombre.grabFocus();
             this.lblMensaje.setVisible(false);
             canPizza = 1;
             this.txtNumPizzas.setText(String.valueOf(canPizza));
         
         }
         
-    }//GEN-LAST:event_bntPedidoActionPerformed
+    }//GEN-LAST:event_bntAgregarActionPerformed
+
+    private void btnFinPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinPedidoActionPerformed
+        //Al presionar el botón "Finalizar pedido" se borra el nombre del cliente
+        //no se agregan pizzas a la lista de pedidos
+        this.txtNombre.setText("");
+        this.txtNombre.grabFocus();
+    }//GEN-LAST:event_btnFinPedidoActionPerformed
 
     private void pedidoPizza(String cliente,String tipo, int cantidad){
         //Dependiendo del tipo de pizza se crean n objetos y se 
@@ -264,32 +312,35 @@ public class jfMain extends javax.swing.JFrame {
                     pedidos.add(new Clasica(cliente));
                 }
                 break;
-        }
-        mostrarTabla();
+        }//fin del switch
         
-    }
+        //se actualiza la tabla
+        mostrarTabla();
+    }//fin del método
+    
     private String ingredientes(String[] ing){
         //Recorre el arreglo con los ingredientes de la pizza
         String ingredientes ="";
         int tam = ing.length;
         for(int i =0;i<tam;i++){
             ingredientes =ingredientes.concat(ing[i]);
-            ingredientes =ingredientes.concat("\n");
-        }
+            ingredientes =ingredientes.concat("\n ");
+        }//fin del for
         //Se concatena cada uno de los Strings de los ingredientes
         //a un nuevo String y se regresa el String creado
         return ingredientes;
-    }
+    }//Fin del metodo
     
     private void pedidosEntregados(){
+        //Metodo para eliminar los pedidos entregados 
         for(int i =0;i<pedidos.size();i++){
             if(pedidos.get(i).getEstado()=="Entregado al cliente")
                 pedidos.remove(i);
-        }
-    }
+        }//fin del for
+    }//Fin del metodo
     
     private void mostrarTabla(){
-        //Se borran los elementos de la tabla
+        //Se limpian los elementos de la tabla
         limpiarTabla();
         //se recorre la lista de pedidos 
         for(int i =0;i<pedidos.size();i++){
@@ -305,7 +356,7 @@ public class jfMain extends javax.swing.JFrame {
                 };
                 //Se agrega el pedido a la tabla
                 modelo.addRow(s);
-            }
+            }//Fin del if
             //Si no hay pedido en armado no se muestran los ingredientes
             else{
                 //Se crea un arreglo de String con los valores del pedido
@@ -316,26 +367,35 @@ public class jfMain extends javax.swing.JFrame {
                 }; 
                //Se agrega el pedido a la tabla
                modelo.addRow(s);
-            } 
-            
-            
-            
-        }
-    }
+            }//Fin del else             
+        }//Fin del for
+    }//Fin del metodo mostrar tabla
+    
     private void limpiarTabla(){
+        //Limpia los elementos de la tabla para actualizar la tabla
         for (int i = 0; i < tblPedidos.getRowCount(); i++) {
             modelo.removeRow(i);
             i-=1;
-        }
-    }
+        }//Fin del for
+    }//Fin del metodo
     
+    /**
+     *
+     */
     public void estados(){
+        //Funcion para cambiar los estados de forma automática
+        
+        //Se crea un iterador para recorrer la lista de pedidos
         Iterator iter = pedidos.iterator();
+        //se crea un objeto de tipo Pizza
         Pizza iP;
-        int i =0;
+        //Se recorre la lista
         while(iter.hasNext()){
+            //Se pasa el elemento actual de la lista a el objeto creado
             iP = (Pizza)iter.next();
+            //Se obtiene el estado del elemento
             switch(iP.getEstado()){
+                //case para cambiar el estado
                 case "En pedido":
                     iP.setEstado("En armado");
                     break;
@@ -349,11 +409,11 @@ public class jfMain extends javax.swing.JFrame {
                     iP.setEstado("Entregado al cliente");
                     break;
                     
-            } 
-            i++;
-        }
+            }//Fin del switch 
+        }//Fin del while
+        //Se muestra la tabla con los datos actualizados
         this.mostrarTabla();
-    }
+    }//Fin del metodo
     
     
     /**
@@ -386,29 +446,34 @@ public class jfMain extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
+                //Se crea un objeto de tipo jfMain()
                jfMain ventana = new jfMain();
+               //Se hace visible
                ventana.setVisible(true);
-                Timer timer;
-                timer = new Timer();
-
-    TimerTask task = new TimerTask() {
-        int tic=0;
-
-        @Override
-        public void run()
-        {
-            ventana.estados();
-            ventana.pedidosEntregados();
-        }
-        };
-        // Empezamos dentro de 10ms y luego lanzamos la tarea cada 1000ms
-    timer.schedule(task, 10, 8000);
-            }
+               //Se cre un objeto Timer
+                Timer timer = new Timer();
+                //Objeto TimerTask
+                TimerTask task = new TimerTask() {
+                    @Override
+                    //Tarea a ejecutar cada determinado tiempo
+                    public void run(){
+                        //se ejecuta el metodo estados 
+                        //para cambiar los estados de los pedidos
+                        ventana.estados();
+                        //Se limpian los pedidos entregados
+                        ventana.pedidosEntregados();
+                    }//Fin del run task
+                };
+                // Se ejecuta la tarea cada 8s
+                timer.schedule(task, 0, 8000);
+            }//Fin del run del main
         });
-    }
+    }//Fin del metodo main
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bntPedido;
+    private javax.swing.JButton bntAgregar;
+    private javax.swing.JButton btnFinPedido;
     private javax.swing.JButton btnMnP;
     private javax.swing.JButton btnMxP;
     private javax.swing.JComboBox<String> cbTipoPizza;

@@ -32,7 +32,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="bntPedido" min="-2" max="-2" attributes="0"/>
+                          <Component id="bntAgregar" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -57,6 +57,10 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblMensaje" min="-2" pref="256" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnFinPedido" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
@@ -99,8 +103,10 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblMensaje" min="-2" pref="20" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="bntPedido" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="61" max="32767" attributes="0"/>
+                      <Component id="bntAgregar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnFinPedido" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="26" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -152,12 +158,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMxPActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="bntPedido">
+    <Component class="javax.swing.JButton" name="bntAgregar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Realizar Pedido"/>
+        <Property name="text" type="java.lang.String" value="Agregar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bntPedidoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bntAgregarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="txtNumPizzas">
@@ -179,7 +185,8 @@
                 <Column editable="true" title="Title 4" type="java.lang.Object"/>
               </Table>
             </Property>
-            <Property name="name" type="java.lang.String" value="efdsa" noResource="true"/>
+            <Property name="autoResizeMode" type="int" value="0"/>
+            <Property name="name" type="java.lang.String" value="" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -190,6 +197,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="PEDIDOS"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnFinPedido">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Finalizar Pedido"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFinPedidoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

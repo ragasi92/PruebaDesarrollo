@@ -6,12 +6,20 @@
 package Modelo;
 
 /**
- *
+ * 
  * @author ragasi92
  */
 public class Chicago extends Pizza {
     
-   public Chicago(String cliente){
+    /**
+     * <p>
+     * Recibe el nombre del cliente del pedido
+     * </p>
+     *
+     * @param cliente
+     * 
+     */
+    public Chicago(String cliente){
        String[] ing = {"Salsa de tomate","Pimiento","Salchicha italiana",
            "Queso Mozzarella"};
        setIngredientes(ing);  

@@ -13,7 +13,9 @@ import java.util.TimerTask;
  * @author ragasi92
  */
 public class Pizza {
-    
+    /**
+     * 
+     */
     private String[] ingredientes;
     private String tipo;
     private String estado = "En pedido";
@@ -21,14 +23,25 @@ public class Pizza {
     
 
     /**
+     * Regresa la lista de ingredientes
      * @return the ingredientes
      */
     public String[] getIngredientes() {
         return ingredientes;
     }
+
+    /**
+     *Regresa el tipo de pizza
+     * @return tipo
+     */
     public String getTipo(){
         return tipo;
     }
+
+    /**
+     *<p>Establece el tipo de pizza</p>
+     * @param tipo
+     */
     public void setTipo(String tipo){
         this.tipo = tipo;
     }

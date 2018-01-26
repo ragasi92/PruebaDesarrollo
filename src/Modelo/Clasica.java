@@ -10,6 +10,13 @@ package Modelo;
  * @author ragasi92
  */
 public class Clasica extends Pizza{
+    /**
+     * <p>
+     * Rcibe el nombre del cliente
+     * </p>
+     * 
+     * @param cliente 
+     */
     public Clasica(String cliente){
         String[] ing = {"Salsa de tomate","Pepperoni","Queso"};
        setIngredientes(ing);
